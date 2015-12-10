@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = targetCompatibility = 1.8
+version = '0.1'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'aws-lambda-jakld',
+                   'Implementation-Version': version
+    }
+    into('lib') {
+        from configurations.compile
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.amazonaws:aws-lambda-java-core:1.1.0'
+    compile files('lib/jakld.jar')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
